@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "278272433968",
+    "project_id": "amadia-notebook",
+    "storage_bucket": "amadia-notebook.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:278272433968:android:7d81067acfe03153e1b2f5",
+        "android_client_info": {
+          "package_name": "com.example.flutter_notes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "278272433968-2a1ierb31g646nm0uik37bgr9iqn76ce.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiLLX4URxmc3Lh9srmkDhp1BipoGfpKGE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "278272433968-2a1ierb31g646nm0uik37bgr9iqn76ce.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
