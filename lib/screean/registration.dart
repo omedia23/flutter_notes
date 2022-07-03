@@ -1,5 +1,8 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import '../firebase_options.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -30,30 +33,51 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('registration')),
-      body: Column(
-        children: [
-          TextField(
-            controller: _email,
-            decoration: const InputDecoration(
-              hintText: "Enter your email",
-            ),
-          ),
-          TextField(
-            controller: _password,
-            decoration: const InputDecoration(hintText: "Enter your password"),
-          ),
-          TextButton(
-            onPressed: () async {
-              final email = _email;
-              final password = _password;
-              await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                email: email.toString(),
-                password: password.toString(),
+      body: FutureBuilder(
+        future: Firebase.initializeApp(
+          options: DefaultFirebaseOptions.currentPlatform,
+        ),
+        builder: ((context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.done:
+              return Column(
+                children: [
+                  TextField(
+                    controller: _email,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: const InputDecoration(
+                      hintText: "Enter your email",
+                    ),
+                  ),
+                  TextField(
+                    controller: _password,
+                    obscureText: true,
+                    autocorrect: false,
+                    enableSuggestions: false,
+                    keyboardType: TextInputType.visiblePassword,
+                    decoration:
+                        const InputDecoration(hintText: "Enter your password"),
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      final email = _email.text;
+                      final password = _password.text;
+
+                      final UserCredential = await FirebaseAuth.instance
+                          .createUserWithEmailAndPassword(
+                        email: email,
+                        password: password,
+                      );
+                      print(UserCredential);
+                    },
+                    child: const Text('Register'),
+                  )
+                ],
               );
-            },
-            child: const Text('Register'),
-          )
-        ],
+            default:
+              return const CircularProgressIndicator();
+          }
+        }),
       ),
     );
   }
